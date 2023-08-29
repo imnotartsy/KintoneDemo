@@ -1,30 +1,34 @@
 // import $ from "jquery";
 
-var code = "1";
-var api_url = "https://pokeapi.co/api/v2/pokemon-form/" + code + "/";
-console.log(api_url);
+var dex = "1";
 
-async function getPokemon() {
+
+
+async function getPokemon(dexnum) {
+    var api_url = "https://pokeapi.co/api/v2/pokemon-form/" + dexnum + "/";
+    console.log(api_url);
     const response = await fetch(api_url);
     const data = await response.json();
     const type_return = data["types"][0]["type"]["name"];
     return Promise.resolve(type_return);
 };
 
+var color = "";
+
 (async () => {
-    var pk_type = await getPokemon();
+    var pk_type = await getPokemon(dex);
     console.log("Retrieved type for pokemon:", pk_type);
 
-    var color = "";
+    
     switch (pk_type) {
         case "normal":
-            color = "colorcell-plugin-red";
+            color = "colorcell-plugin-green";
             break;
         case "fire":
-            color = "colorcell-plugin-blue";
+            color = "colorcell-plugin-red";
             break;
         case "water":  
-            color = "colorcell-plugin-green";
+            color = "colorcell-plugin-blue";
             break;
         default:
             color = "colorcell-plugin-red";
@@ -33,6 +37,9 @@ async function getPokemon() {
     console.log("Color:", color);
 
 })();
+
+
+console.log("Color:", color);
 
 
 
